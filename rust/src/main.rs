@@ -16,8 +16,6 @@ fn main() {
         exit(1);
     }
 
-    // let a = ;
-
     match args[1].as_ref() {
         "blur" => handle_blur(&args[2..]),
         "cut" => handle_cut(&args[2..]),

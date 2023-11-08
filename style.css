@@ -1,0 +1,39 @@
+body {
+  background-color: aqua;
+}
+.imgContainer {
+  margin-left: 27%;
+  margin-top: 8%;
+  margin-bottom: 5%;
+}
+.itemImg {
+  height: 300px;
+  width: 300px;
+  margin-right:85px;
+}
+.inputPhoto {
+  background-color: brown;
+  border-radius: 12px;
+  padding: 9px;
+  color: whitesmoke;
+}
+input[type="file"] {
+  display: none;
+}
+.blurButton {
+  background-color: brown;
+  width: 48px;
+  color: whitesmoke;
+  height: 40px;
+  border-radius: 12px;
+  border: none;
+}
+.btnsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.blurLevel{
+    width: 50px;
+}

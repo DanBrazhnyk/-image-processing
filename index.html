@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="imgContainer">
+    <canvas class="itemImg" id="originalCanvas"></canvas>
+    <canvas class="itemImg" id="blurredCanvas"></canvas>
+  </div>
+  <div class="btnsContainer">
+    <label class="inputPhoto">
+      <input type="file" id="fileInput" />
+      Upload Photo
+    </label>
+  
+    <button class="blurButton" id="blurButton">Blur</button>
+    <input class="blurLevel" type="number" id="blurLevel" min="1" value="1">
+  </div>
+  <script src="blur.js"></script>
+</body>
+
+</html>

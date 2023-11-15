@@ -12,6 +12,7 @@ struct Pixel {
 class BitmapImage {
 public:
     BitmapImage(const std::string& filename);
+    void blendWith(const BitmapImage& other);
     ~BitmapImage();
 
     Pixel getPixel(int x, int y) const;

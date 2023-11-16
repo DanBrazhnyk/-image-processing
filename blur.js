@@ -45,7 +45,7 @@ document.getElementById("fileInput").addEventListener("change", (e) => {
   const blurredCtx = blurredCanvas.getContext("2d");
   const img = new Image();
 
-  img.onload =  () =>{
+  img.onload = () => {
     originalCanvas.width = img.width;
     originalCanvas.height = img.height;
     blurredCanvas.width = img.width;
@@ -57,7 +57,7 @@ document.getElementById("fileInput").addEventListener("change", (e) => {
   img.src = URL.createObjectURL(e.target.files[0]);
 });
 
-document.getElementById("blurButton").addEventListener("click", ()=> {
+document.getElementById("blurButton").addEventListener("click", () => {
   const originalCanvas = document.getElementById("originalCanvas");
   const originalCtx = originalCanvas.getContext("2d");
   const blurredCanvas = document.getElementById("blurredCanvas");
@@ -74,6 +74,51 @@ document.getElementById("blurButton").addEventListener("click", ()=> {
 
   const blurredData = boxBlurImage(imageData, radius);
   blurredCtx.putImageData(blurredData, 0, 0);
-  
 });
+document.getElementById("doBlur").addEventListener("click", () => {
+  document.getElementById("doMerging").style.display = "none";
+  document.getElementById("mergeButton").style.display = "none";
+  document.getElementById("blurButton").style.display = "flex";
+  document.getElementById("backButton").style.display = "flex";
+  document.getElementById("blurLevel").style.display = "flex";
+  document.getElementById("blurredCanvas").style.display = "flex";
+  document.getElementById("doBlur").style.display = "none";
+  document.getElementById("imgInputes").style.display = "flex";
+  document.getElementById("fileInput2").style.display = "none";
+    document.getElementById("choose").style.display = "none";
+});
+document.getElementById("mergingCanvas").style.display = "none";
+document.getElementById("blurButton").style.display = "none";
+document.getElementById("mergeButton").style.display = "none";
+document.getElementById("backButton").style.display = "none";
+document.getElementById("blurLevel").style.display = "none";
+document.getElementById("blurredCanvas").style.display = "none";
+document.getElementById("imgInputes").style.display = "none";
+document.getElementById("alphaInput").style.display = "none";
+document.getElementById("alphaLabel").style.display = "none";
 
+document.getElementById("backButton").addEventListener("click", () => {
+  document.getElementById("alphaInput").style.display = "none";
+  document.getElementById("doMerging").style.display = "flex";
+  document.getElementById("mergingCanvas").style.display = "none";
+  document.getElementById("blurButton").style.display = "none";
+  document.getElementById("mergeButton").style.display = "none";
+  document.getElementById("blurLevel").style.display = "none";
+  document.getElementById("doBlur").style.display = "flex";
+  document.getElementById("choose").style.display = "flex";
+  document.getElementById("backButton").style.display = "none";
+  document.getElementById("imgInputes").style.display = "none";
+  document.getElementById("alphaLabel").style.display = "none";
+  document.getElementById("original2Canvas").style.display = "none";
+  const originalCanvas = document.getElementById("originalCanvas");
+  const originalCtx = originalCanvas.getContext("2d");
+  originalCtx.clearRect(0, 0, originalCanvas.width, originalCanvas.height);  
+
+  const original2Canvas = document.getElementById("original2Canvas");
+  const original2Ctx = original2Canvas.getContext("2d");
+  original2Ctx.clearRect(0, 0, original2Canvas.width, originalCanvas.height);
+
+  const blurredCanvas = document.getElementById("blurredCanvas");
+  const blurredCtx = blurredCanvas.getContext("2d");
+  blurredCtx.clearRect(0, 0, blurredCanvas.width, blurredCanvas.height);
+});

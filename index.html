@@ -9,20 +9,40 @@
 </head>
 
 <body>
-  <div class="imgContainer">
+  <div class="imgContainer" id="imgContainer">
     <canvas class="itemImg" id="originalCanvas"></canvas>
     <canvas class="itemImg" id="blurredCanvas"></canvas>
+    <canvas class="itemImg" id="original2Canvas"></canvas>
+    <canvas class="itemImg" id="mergingCanvas"></canvas>
   </div>
+  <h1 class="choose" id="choose">Choose what you want to do with the photo</h1>
   <div class="btnsContainer">
-    <label class="inputPhoto">
-      <input type="file" id="fileInput" />
-      Upload Photo
+    <div class="imgInputes" id="imgInputes">
+      <label class="inputPhoto">
+        <input type="file" id="fileInput" />
+        Upload photo
+      </label>
+      <label class="inputPhoto" id="fileInput2">
+        <input type="file" id="fileInput2" />
+        Upload second photo
+      </label>
+    </div>
+
+    <button class="button" id="doBlur">Do bluring</button>
+    <button class="button" id="doMerging">Do merging</button>
+
+    <button class="button" id="blurButton">Blur</button>
+    <button class="button" id="mergeButton">Merge</button>
+    <button class="button" id="backButton">Back</button>
+
+    <label for="alphaInput" class="alphaLabel" id="alphaLabel">Merge Transparency Scale
+      <input class="alphaInput" type="range" id="alphaInput" min="0" max="1" step="0.1" value="0.4">
     </label>
-  
-    <button class="blurButton" id="blurButton">Blur</button>
+
     <input class="blurLevel" type="number" id="blurLevel" min="1" value="1">
   </div>
-  <script src="blur.js"></script>
 </body>
+<script src="blur.js"></script>
+<script src="merging.js"></script>
 
 </html>

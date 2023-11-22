@@ -1,10 +1,5 @@
-mod blur;
-mod cut;
-mod merge;
+use image_processing::{blur, cut, merge::merge};
 
-use blur::blur;
-use cut::cut;
-use merge::merge;
 use std::env;
 use std::process::exit;
 

@@ -1,4 +1,8 @@
+use image;
+
 use opencv::{core, core::Mat, imgproc};
+
+// OpenCV implementations
 
 fn opencv_read_and_write(
     input_file: &str,
@@ -10,7 +14,7 @@ fn opencv_read_and_write(
 
     let mut processed = Mat::default();
 
-    processing(&input, &mut processed).expect("applying effect failed");
+    processing(&input, &mut processed)?;
 
     let params = opencv::core::Vector::new();
     opencv::imgcodecs::imwrite(output_file, &processed, &params)?;
@@ -59,4 +63,17 @@ pub fn opencv_gaussian_blur(
             core::BORDER_DEFAULT,
         )
     })
+}
+
+// `image` library implementations
+
+pub fn imagelib_gaussian_blur(
+    input_file: &str,
+    output_file: &str,
+    sigma: f32,
+) -> image::ImageResult<()> {
+    let input = image::open(input_file)?;
+    let input = input.blur(sigma);
+    input.save(output_file)?;
+    Ok(())
 }

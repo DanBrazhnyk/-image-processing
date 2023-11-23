@@ -72,8 +72,8 @@ pub fn imagelib_gaussian_blur(
     output_file: &str,
     sigma: f32,
 ) -> image::ImageResult<()> {
-    let input = image::open(input_file)?;
-    let input = input.blur(sigma);
-    input.save(output_file)?;
+    let img = image::open(input_file)?;
+    let img = img.blur(sigma);
+    img.save(output_file)?;
     Ok(())
 }

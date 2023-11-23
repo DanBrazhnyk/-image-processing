@@ -2,25 +2,25 @@
 #include <fstream>
 #include <iostream>
 
+using namespace std;
+
 BitmapImage::BitmapImage(const std::string& filename) : width(0), height(0), pixels(nullptr) {
     std::ifstream file(filename, std::ios::binary);
     if (!file) {
         std::cerr << "Unable to open file" << std::endl;
         return;
     }
+    file.read(reinterpret_cast<char*>(fileHeader), 14);
 
-    file.seekg(10);
-    int dataOffset;
-    file.read(reinterpret_cast<char*>(&dataOffset), 4);
+    file.read(reinterpret_cast<char*>(informationHeader), 40);
 
-    file.seekg(18);
-    file.read(reinterpret_cast<char*>(&width), 4);
-    file.read(reinterpret_cast<char*>(&height), 4);
-
-    file.seekg(dataOffset, std::ios::beg);
+    width = informationHeader[4] | (informationHeader[5] << 8) | (informationHeader[6] << 16) | (informationHeader[7] << 24);
+    height = informationHeader[8] | (informationHeader[9] << 8) | (informationHeader[10] << 16) | (informationHeader[11] << 24);
 
     pixels = new Pixel[width * height];
     file.read(reinterpret_cast<char*>(pixels), width * height * sizeof(Pixel));
+
+    file.close();
 }
 
 void BitmapImage::blendWith(const BitmapImage& other) { 
@@ -55,6 +55,22 @@ void BitmapImage::blendWith(const BitmapImage& other) {
         << ", alpha: " << static_cast<int>(pixel.alpha) << std::endl;
     return;
 }
+
+// Removes portion of image in shape of square with upper left corner coordinates (x,y)
+void BitmapImage::removePortion(int x, int y, int sideLength) {
+    if (x > width || x < 0 || y > height || y < 0) {
+        cout << "Picked point has to be in the range of the image." << endl;
+        return;
+    }
+
+    // Setting each pixel of square to alpha 0
+    for (int i = 0; i < sideLength && y + i <= height; i++) {
+        for (int j = 0; j < sideLength && x + j <= width; j++) {
+            pixels[(x + j) + width * (y + i)].alpha = 0;
+        }
+    }
+}
+
 BitmapImage::~BitmapImage() {
     delete[] pixels;
 }

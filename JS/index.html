@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Manipulation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="menu">
+        <h1 class="choose" id="choose">Choose what you want to do with the photo</h1>
+        <div class="doBtns">
+            <button class="button" id="doBlur">Do bluring</button>
+            <button class="button" id="doMerging">Do merging</button>
+            <button class="button" id="doRemoving">Do removing</button>
+        </div>
+    </div>
+
+    <div class="blurContainer">
+        <div class="Imgs">
+
+            <canvas class="itemImg" id="originalCanvas"></canvas>
+            <canvas class="itemImg" id="blurredCanvas"></canvas>
+        </div>
+        <div class="btns">
+            <label class="inputPhoto">
+                <input type="file" id="blurInput" />
+                Upload photo
+            </label>
+            <input class="blurLevel" type="number" id="blurLevel" min="1" value="1">
+            <button class="button" id="blurButton">Blur</button>
+            <button class="button" id="backButton">Back</button>
+        </div>
+    </div>
+
+    <div class="mergingContainer">
+        <div class="Imgs">
+            <canvas class="itemImg" id="merge1Canvas"></canvas>
+            <canvas class="itemImg" id="merge2Canvas"></canvas>
+            <canvas class="itemImg" id="mergingCanvas"></canvas>
+        </div>
+        <div class="btns">
+            <label class="inputPhoto">
+                <input type="file" id="fileInput" />
+                Upload photo
+            </label>
+            <label class="inputPhoto" id="fileInput2">
+                <input type="file" id="fileInput2" />
+                Upload second photo
+            </label>
+            <label for="alphaInput" class="alphaLabel" id="alphaLabel">Merge Transparency Scale
+                <input class="alphaInput" type="range" id="alphaInput" min="0" max="1" step="0.1" value="0.4">
+            </label>
+            <button class="button" id="mergeButton">Merge</button>
+            <button class="button" id="backButtonMerge">Back</button>
+        </div>
+    </div>
+
+    <div class="removeContainer">
+        <div class="imgContainer" id="imgContainer">
+            <img class="itemImg" id="originalImage">
+            <canvas class="itemImg" id="removedCanvas"></canvas>
+        </div>
+        <div class="btnsContainer" id="removeContainer">
+            <div class="imgInputes" id="imgInputes">
+                <label class="inputPhoto">
+                    <input type="file" id="imageInput" />
+                    Upload photo
+                </label>
+            </div>
+            <button class="button" id="removePortionButton">Remove Portion</button>
+            <button class="button" id="backButtonRemove">Back</button>
+            <label for="removeX">X:</label>
+            <input type="number" id="removeX" min="0" max="550" />
+
+            <label for="removeY">Y:</label>
+            <input type="number" id="removeY" min="0" max="550" />
+
+            <label for="removeWidth">Width:</label>
+            <input type="number" id="removeWidth" min="0" max="550" />
+
+            <label for="removeHeight">Height:</label>
+            <input type="number" id="removeHeight" min="0" max="550" />
+        </div>
+    </div>
+
+    <script src="blur.js"></script>
+    <script src="merging.js"></script>
+    <script src="removePortions.js"></script>
+</body>
+
+</html>

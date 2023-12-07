@@ -14,10 +14,10 @@ body {
 }
 .alphaLabel {
   margin-bottom: 8px;
-  color: #333; 
-  font-weight: bold; 
+  color: #333;
+  font-weight: bold;
 }
-.choose{
+.choose {
   font-size: 24px;
   margin-left: 37%;
 }
@@ -52,4 +52,19 @@ input[type="file"] {
 }
 .imgInputes {
   gap: 24px;
+}
+.menu{
+  margin-top: 15%;
+}
+.doBtns,.btns{
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+.Imgs{
+  margin-top: 7%;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  margin-bottom: 6%;
 }

@@ -5,9 +5,9 @@ mod tests {
 
     #[test]
     fn blur() {
-        let input = "../test1.jpg";
+        let input = "../test1.png";
         fn output(name: &str) -> String {
-            format!("../test1_{}_blur.jpg", name)
+            format!("../test1_{}_blur.png", name)
         }
 
         let sigma = 20.0;
@@ -16,5 +16,6 @@ mod tests {
         assert!(blur::imagelib_gaussian_blur(input, &output("imagelib_gaussian"), sigma).is_ok());
         assert!(blur::opencv_gaussian_blur(input, &output("opencv_gaussian"), blur_factor).is_ok());
         assert!(blur::opencv_box_blur(input, &output("opencv_box"), blur_factor).is_ok());
+        assert!(blur::box_blur(input, &output("manual_box"), blur_factor).is_ok());
     }
 }

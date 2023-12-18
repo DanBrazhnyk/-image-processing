@@ -53,7 +53,27 @@ fn handle_blur(args: &[String]) {
         println!("merge help");
         exit(0)
     }
-    for arg in args {
-        println!("{}", arg);
-    }
+
+    let [input, output, blur_factor] = args else {
+        println!("improper arguments");
+        exit(1)
+    };
+
+    let blur_factor = match blur_factor.parse::<i32>() {
+        Ok(val) => val,
+        Err(_) => {
+            println!("couldn't parse blur factor");
+            exit(1)
+        }
+    };
+    println!("bluring");
+
+    match blur::box_blur(input, output, blur_factor) {
+        Ok(_) => println!("done"),
+        Err(e) => {
+            println!("Blurring FAILED");
+            println!("{}", e);
+            exit(1)
+        }
+    };
 }

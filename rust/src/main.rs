@@ -1,4 +1,5 @@
-use image_processing::{blur, cut, merge::merge};
+use image_processing::blur;
+use image_processing::merge;
 
 use std::env;
 use std::process::exit;
@@ -25,17 +26,20 @@ fn print_help() {
 
 fn handle_merge(args: &[String]) {
     if args.is_empty() {
-        println!("merge [image1] [image2] [image2 merge factor (float)]");
+        println!("merge [image1] [image2] [output image name] [image2 merge factor (float)]");
         exit(0)
     }
 
-    if args.len() != 3 {
+    if args.len() != 4 {
         panic!("wrong number of arguments!")
     }
 
-    let merge_factor: f32 = args[2].parse().expect("merge factor needs to be a float!");
+    let image1 = &args[0];
+    let image2 = &args[1];
+    let output = &args[2];
+    let merge_factor: f32 = args[3].parse().expect("merge factor needs to be a float!");
 
-    merge(&args[0], &args[1], merge_factor);
+    merge::opencv_merge(input1, input2, output, merge_factor);
 }
 
 fn handle_cut(args: &[String]) {

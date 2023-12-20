@@ -15,9 +15,8 @@ public:
     void boxBlur(int radiusLength, char* outName);
     void merge(const BitmapImage& other, int newAlpha, char* outName);
     void removePortion(int x, int y, int sideLength, char* outName);
+    void computeCumulativeSums(int** sumRed, int** sumGreen, int** sumBlue);
     ~BitmapImage();
-
-    Pixel getPixel(int x, int y) const;
 
     int width, height;
     unsigned char fileHeader[14];

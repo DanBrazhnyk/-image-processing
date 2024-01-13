@@ -3,7 +3,7 @@ use opencv::{
     imgproc::{fill_convex_poly, LINE_8},
 };
 
-pub fn cut(
+pub fn opencv_cut(
     input_file: &str,
     output_file: &str,
     color: opencv::core::Scalar,

@@ -1,4 +1,5 @@
 const boxBlurImage = (imageData, radius) => {
+  const startTime = performance.now();
   const data = imageData.data;
   const width = imageData.width;
   const height = imageData.height;
@@ -34,7 +35,9 @@ const boxBlurImage = (imageData, radius) => {
       blurredData[offset + 3] = data[offset + 3];
     }
   }
-
+  const endTime = performance.now();
+  const elapsedTimeInSeconds = (endTime - startTime) / 1000; 
+  console.log(`Time taken: ${elapsedTimeInSeconds.toFixed(3)} seconds`);
   return new ImageData(blurredData, width, height);
 };
 

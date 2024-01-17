@@ -50,6 +50,7 @@ document.getElementById("fileInput2").addEventListener("change", function (e) {
 
 document.getElementById("mergeButton").addEventListener("click", function () {
   if (image1.complete && image2.complete) {
+    const startTime = performance.now();
     mergingCanvas.width = 300;
     mergingCanvas.height = 300;
     mergingCtx.clearRect(0, 0, mergingCanvas.width, mergingCanvas.height);
@@ -64,6 +65,9 @@ document.getElementById("mergeButton").addEventListener("click", function () {
     let mergingDataURL = mergingCanvas.toDataURL();
     mergingCanvas.style.display = "block";
     mergingCanvas.src = mergingDataURL;
+    const endTime = performance.now();
+    const elapsedTimeInSeconds = (endTime - startTime) / 1000; 
+    console.log(`Merging time: ${elapsedTimeInSeconds.toFixed(3)} seconds`);
   } else {
     alert("Please upload both images before merging.");
   }

@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function removePortion() {
+      const startTime = performance.now();
       const x = parseInt(removeXInput.value);
       const y = parseInt(removeYInput.value);
       const width = parseInt(removeWidthInput.value);
@@ -82,6 +83,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const newImage = new Image();
       newImage.onload = function () {
           createLayer(newImage);
+          const endTime = performance.now();
+          const duration = (endTime - startTime) / 1000; 
+          console.log(`Removal took ${duration} seconds.`);
       };
       newImage.src = layer.toDataURL();
   }

@@ -1,17 +1,17 @@
 use image;
 
-use lodepng::{self, Error};
+use lodepng;
 use opencv::{core, core::Mat, imgproc};
 use rgb::RGBA8;
 use std::cmp::{max, min};
-
+use std::result::Result;
 // OpenCV implementations
 
-fn opencv_read_and_write(
+pub fn opencv_read_and_write(
     input_file: &str,
     output_file: &str,
     processing: impl Fn(&Mat, &mut Mat) -> opencv::Result<()>,
-) -> opencv::Result<()> {
+) -> Result<(), opencv::Error> {
     let input: opencv::prelude::Mat =
         opencv::imgcodecs::imread(input_file, opencv::imgcodecs::IMREAD_COLOR)?;
 
@@ -29,7 +29,7 @@ pub fn opencv_box_blur(
     input_file: &str,
     output_file: &str,
     blur_factor: i32,
-) -> opencv::Result<()> {
+) -> Result<(), opencv::Error> {
     let img = opencv::imgcodecs::imread(input_file, opencv::imgcodecs::IMREAD_COLOR)?;
 
     let mut blurred = Mat::default();
@@ -52,7 +52,7 @@ pub fn opencv_gaussian_blur(
     input_file: &str,
     output_file: &str,
     blur_factor: i32,
-) -> opencv::Result<()> {
+) -> Result<(), opencv::Error> {
     opencv_read_and_write(input_file, output_file, |input, processed: &mut Mat| {
         imgproc::gaussian_blur(
             &input,
@@ -74,7 +74,7 @@ pub fn imagelib_gaussian_blur(
     input_file: &str,
     output_file: &str,
     sigma: f32,
-) -> image::ImageResult<()> {
+) -> Result<(), image::ImageError> {
     let img = image::open(input_file)?;
     let img = img.blur(sigma);
     img.save(output_file)?;
@@ -84,7 +84,7 @@ pub fn imagelib_gaussian_blur(
 // Manual implementations
 
 // blur implemented previously by Danylo adapted to rust https://github.com/DanBrazhnyk/image-processing/blob/js-project/blur.js
-pub fn box_blur(input_file: &str, output_file: &str, radius: i32) -> Result<(), Error> {
+pub fn box_blur(input_file: &str, output_file: &str, radius: i32) -> Result<(), lodepng::Error> {
     let input = lodepng::decode32_file(input_file)?;
 
     let data = input.buffer;
@@ -113,7 +113,7 @@ pub fn box_blur(input_file: &str, output_file: &str, radius: i32) -> Result<(), 
                     let ny = min(max(y + dy, 0), (height - 1) as i32);
 
                     let offset = (ny * width as i32 + nx) as usize;
-                    let RGBA8 { r, g, b, a } = data[offset];
+                    let RGBA8 { r, g, b, a: _ } = data[offset];
                     red += r as usize;
                     green += g as usize;
                     blue += b as usize;

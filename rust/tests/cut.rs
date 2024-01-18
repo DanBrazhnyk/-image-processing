@@ -16,8 +16,11 @@ mod tests {
             Point::new(100, 100),
             Point::new(50, 100),
         ];
+
         let white = Scalar::new(255.0, 255.0, 255.0, 255.0);
+        let black_rgba = [255, 255, 255, 255];
 
         assert!(cut::opencv_cut(input, &output("opencv"), white, coordinates).is_ok());
+        assert!(cut::manual_cut(input, &output("manual"), 20, 30, 400, black_rgba).is_ok());
     }
 }

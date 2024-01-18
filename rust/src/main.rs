@@ -1,5 +1,4 @@
-use image_processing::blur;
-use image_processing::merge;
+use image_processing::{blur, cut, merge};
 
 use std::env;
 use std::process::exit;
@@ -37,24 +36,41 @@ fn handle_merge(args: &[String]) {
     let image1 = &args[0];
     let image2 = &args[1];
     let output = &args[2];
-    let merge_factor: f32 = args[3].parse().expect("merge factor needs to be a float!");
+    let merge_factor: f64 = args[3].parse().expect("merge factor needs to be a float!");
 
-    merge::opencv_merge(input1, input2, output, merge_factor);
+    match merge::manual_merge(image1, image2, output, merge_factor) {
+        Ok(_) => (),
+        Err(e) => println!("ERROR: {}", e),
+    }
 }
 
 fn handle_cut(args: &[String]) {
     if args.is_empty() {
-        println!("cut help");
+        println!("cut [input] [output] [x] [y] [side_length] [color rgba separated with ,]");
         exit(0)
     }
-    for arg in args {
-        println!("{}", arg);
+    let [input, output, x, y, side_length, color_str] = args else {
+        println!("improper arguments");
+        exit(1)
+    };
+    let x: usize = x.parse().unwrap();
+    let y: usize = y.parse().unwrap();
+    let side_length: usize = side_length.parse().unwrap();
+    let color: [u8; 4] = color_str
+        .split(",")
+        .map(|a| a.parse::<u8>().unwrap())
+        .collect::<Vec<u8>>()
+        .try_into()
+        .unwrap();
+    match cut::manual_cut(&input, &output, x, y, side_length, color) {
+        Ok(_) => (),
+        Err(e) => println!("ERROR: {}", e),
     }
 }
 
 fn handle_blur(args: &[String]) {
     if args.is_empty() {
-        println!("merge help");
+        println!("merge [input1] [input2] [output] [merge factor]");
         exit(0)
     }
 

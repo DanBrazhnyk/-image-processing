@@ -57,7 +57,7 @@ pub fn manual_merge(
     let img2 = image::open(input2)?;
 
     // Ensure that both images have the same dimensions
-    assert!(img1.dimensions() != img2.dimensions());
+    assert!(img1.dimensions() == img2.dimensions());
 
     // Create a new image to store the blended result
     let mut blended_image = image::DynamicImage::new_rgba8(img1.width(), img1.height());
